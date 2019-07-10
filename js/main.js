@@ -115,9 +115,10 @@ fieldset.addEventListener('change', function (evt) {
 );
 
 var changeEffect = function () {
-  if (photo.className === 'effects__preview--none') {
+  if (!photo.hasAttribute('class') || photo.className === 'effects__preview--none') {
     effectLevel.style.display = 'none';
   } else {
+    effectLevel.style.display = 'block';
     effectLevelpin.style.left = '100%';
     effectLevelDepth.style.width = '100%';
   }
