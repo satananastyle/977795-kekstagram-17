@@ -67,3 +67,60 @@ var renderPictures = function () {
 };
 
 renderPictures();
+
+var ESC_CODE = 27;
+
+var uploadFile = document.querySelector('#upload-file');
+var formChangeFile = document.querySelector('.img-upload__overlay');
+var closeForm = formChangeFile.querySelector('.img-upload__cancel');
+
+var photo = document.querySelector('.img-upload__preview img');
+
+var effectLevel = formChangeFile.querySelector('.effect-level');
+var effectLevelpin = formChangeFile.querySelector('.effect-level__pin');
+var effectLevelDepth = formChangeFile.querySelector('.effect-level__depth');
+
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_CODE) {
+    closePopup();
+  }
+};
+
+var openPopup = function () {
+  formChangeFile.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function () {
+  formChangeFile.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+uploadFile.addEventListener('change', function () {
+  openPopup();
+  changeEffect();
+});
+
+closeForm.addEventListener('click', function () {
+  closePopup();
+});
+
+var fieldset = document.querySelector('.effects');
+
+fieldset.addEventListener('change', function (evt) {
+  var element = evt.target;
+
+  photo.classList.remove(photo.removeAttribute('class'));
+  photo.classList.add('effects__preview--' + element.getAttribute('value'));
+  changeEffect();
+});
+
+var changeEffect = function () {
+  if (!photo.hasAttribute('class') || photo.className === 'effects__preview--none') {
+    effectLevel.style.display = 'none';
+  } else {
+    effectLevel.style.display = 'block';
+    effectLevelpin.style.left = '100%';
+    effectLevelDepth.style.width = '100%';
+  }
+};
