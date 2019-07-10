@@ -80,27 +80,29 @@ var effectLevel = formChangeFile.querySelector('.effect-level');
 var effectLevelpin = formChangeFile.querySelector('.effect-level__pin');
 var effectLevelDepth = formChangeFile.querySelector('.effect-level__depth');
 
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_CODE) {
+    closePopup();
+  }
+};
 
-var onClose = function () {
-  document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ESC_CODE) {
-      photo.classList.remove(photo.removeAttribute('class'));
-      formChangeFile.classList.add('hidden');
-      document.removeEventListener('keydown', onClose);
-    }
-  });
+var openPopup = function () {
+  formChangeFile.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function () {
+  formChangeFile.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
 };
 
 uploadFile.addEventListener('change', function () {
-  formChangeFile.classList.remove('hidden');
-  document.addEventListener('keydown', onClose);
+  openPopup();
   changeEffect();
 });
 
 closeForm.addEventListener('click', function () {
-  photo.classList.remove(photo.removeAttribute('class'));
-  formChangeFile.classList.add('hidden');
-  document.removeEventListener('keydown', onClose);
+  closePopup();
 });
 
 var fieldset = document.querySelector('.effects');
