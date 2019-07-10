@@ -76,20 +76,25 @@ var closeForm = formChangeFile.querySelector('.img-upload__cancel');
 
 var photo = document.querySelector('.img-upload__preview img');
 
-uploadFile.addEventListener('change', function () {
-  formChangeFile.classList.remove('hidden');
-
+var onClose = function () {
   document.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ESC_CODE) {
       photo.classList.remove(photo.removeAttribute('class'));
       formChangeFile.classList.add('hidden');
+      document.removeEventListener('keydown', onClose);
     }
   });
+};
+
+uploadFile.addEventListener('change', function () {
+  formChangeFile.classList.remove('hidden');
+  document.addEventListener('keydown', onClose);
 });
 
 closeForm.addEventListener('click', function () {
   photo.classList.remove(photo.removeAttribute('class'));
   formChangeFile.classList.add('hidden');
+  document.removeEventListener('keydown', onClose);
 });
 
 var fieldset = document.querySelector('.effects');
