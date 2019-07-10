@@ -111,8 +111,7 @@ fieldset.addEventListener('change', function (evt) {
   photo.classList.remove(photo.removeAttribute('class'));
   photo.classList.add('effects__preview--' + element.getAttribute('value'));
   changeEffect();
-}
-);
+});
 
 var changeEffect = function () {
   if (!photo.hasAttribute('class') || photo.className === 'effects__preview--none') {
