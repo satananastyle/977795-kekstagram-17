@@ -76,6 +76,11 @@ var closeForm = formChangeFile.querySelector('.img-upload__cancel');
 
 var photo = document.querySelector('.img-upload__preview img');
 
+var effectLevel = formChangeFile.querySelector('.effect-level');
+var effectLevelpin = formChangeFile.querySelector('.effect-level__pin');
+var effectLevelDepth = formChangeFile.querySelector('.effect-level__depth');
+
+
 var onClose = function () {
   document.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ESC_CODE) {
@@ -89,6 +94,7 @@ var onClose = function () {
 uploadFile.addEventListener('change', function () {
   formChangeFile.classList.remove('hidden');
   document.addEventListener('keydown', onClose);
+  changeEffect();
 });
 
 closeForm.addEventListener('click', function () {
@@ -101,7 +107,18 @@ var fieldset = document.querySelector('.effects');
 
 fieldset.addEventListener('change', function (evt) {
   var element = evt.target;
+
   photo.classList.remove(photo.removeAttribute('class'));
   photo.classList.add('effects__preview--' + element.getAttribute('value'));
+  changeEffect();
 }
 );
+
+var changeEffect = function () {
+  if (photo.className === 'effects__preview--none') {
+    effectLevel.style.display = 'none';
+  } else {
+    effectLevelpin.style.left = '100%';
+    effectLevelDepth.style.width = '100%';
+  }
+};
