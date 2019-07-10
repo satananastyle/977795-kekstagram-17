@@ -87,27 +87,30 @@ var onPopupEscPress = function (evt) {
 };
 
 var openPopup = function () {
+  changeEffect();
   formChangeFile.classList.remove('hidden');
+  closeForm.addEventListener('click', onPopupEscPress);
   document.addEventListener('keydown', onPopupEscPress);
 };
 
 var closePopup = function () {
+  photo.classList.remove(photo.removeAttribute('class'));
   formChangeFile.classList.add('hidden');
+  closeForm.removeEventListener('click', onPopupEscPress);
   document.removeEventListener('keydown', onPopupEscPress);
 };
 
 uploadFile.addEventListener('change', function () {
   openPopup();
-  changeEffect();
 });
 
 closeForm.addEventListener('click', function () {
   closePopup();
 });
 
-var fieldset = document.querySelector('.effects');
+var effect = document.querySelector('.effects');
 
-fieldset.addEventListener('change', function (evt) {
+effect.addEventListener('change', function (evt) {
   var element = evt.target;
 
   photo.classList.remove(photo.removeAttribute('class'));
