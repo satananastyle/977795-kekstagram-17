@@ -127,3 +127,13 @@ var changeEffect = function () {
     effectLevelDepth.style.width = '100%';
   }
 };
+
+var textDescription = formChangeFile.querySelector('.text__description');
+
+textDescription.addEventListener('focus', function () {
+  document.removeEventListener('keydown', onPopupEscPress);
+});
+
+textDescription.addEventListener('blur', function () {
+  document.addEventListener('keydown', onPopupEscPress);
+});
