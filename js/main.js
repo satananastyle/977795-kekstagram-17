@@ -81,7 +81,8 @@ var effectLevelpin = formChangeFile.querySelector('.effect-level__pin');
 var effectLevelDepth = formChangeFile.querySelector('.effect-level__depth');
 
 var onPopupEscPress = function (evt) {
-  if (evt.keyCode === ESC_CODE) {
+  var textDescription = formChangeFile.querySelector('.text__description');
+  if (evt.keyCode === ESC_CODE && document.activeElement !== textDescription) {
     closePopup();
   }
 };
@@ -127,13 +128,3 @@ var changeEffect = function () {
     effectLevelDepth.style.width = '100%';
   }
 };
-
-var textDescription = formChangeFile.querySelector('.text__description');
-
-textDescription.addEventListener('focus', function () {
-  document.removeEventListener('keydown', onPopupEscPress);
-});
-
-textDescription.addEventListener('blur', function () {
-  document.addEventListener('keydown', onPopupEscPress);
-});
