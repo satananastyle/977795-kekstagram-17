@@ -73,6 +73,7 @@ var ESC_CODE = 27;
 var uploadFile = document.querySelector('#upload-file');
 var formChangeFile = document.querySelector('.img-upload__overlay');
 var closeForm = formChangeFile.querySelector('.img-upload__cancel');
+var textDescription = formChangeFile.querySelector('.text__description');
 
 var photo = document.querySelector('.img-upload__preview img');
 
@@ -83,7 +84,6 @@ var effectLevelPin = formChangeFile.querySelector('.effect-level__pin');
 var effectLevelDepth = formChangeFile.querySelector('.effect-level__depth');
 
 var onPopupEscPress = function (evt) {
-  var textDescription = formChangeFile.querySelector('.text__description');
   if (evt.keyCode === ESC_CODE && document.activeElement !== textDescription) {
     closePopup();
   }
