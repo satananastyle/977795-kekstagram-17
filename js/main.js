@@ -124,14 +124,60 @@ effect.addEventListener('change', function (evt) {
 var changeEffect = function () {
   if (!photo.hasAttribute('class') || photo.className === 'effects__preview--none') {
     effectLevel.style.display = 'none';
+    photo.style.filter = 'none';
   } else {
     effectLevel.style.display = 'block';
     effectLevelPin.style.left = '100%';
     effectLevelDepth.style.width = '100%';
+    changeEffectLevel(100);
+  }
+};
+
+// изменение фильтра
+var changeEffectLevel = function (procent) {
+  var maxFilter = null;
+  var minFilter = null;
+  var valueFilter = null;
+
+  switch (photo.className) {
+    case 'effects__preview--chrome' :
+      minFilter = 0;
+      maxFilter = 1;
+      valueFilter = procent * (maxFilter - minFilter) / 100 + minFilter;
+      photo.style.filter = 'grayscale(' + valueFilter + ')';
+      break;
+
+    case 'effects__preview--sepia' :
+      minFilter = 0;
+      maxFilter = 1;
+      valueFilter = procent * (maxFilter - minFilter) / 100 + minFilter;
+      photo.style.filter = 'sepia(' + valueFilter + ')';
+      break;
+
+    case 'effects__preview--marvin' :
+      minFilter = 0;
+      maxFilter = 100;
+      valueFilter = procent * (maxFilter - minFilter) / 100 + minFilter;
+      photo.style.filter = 'invert(' + valueFilter + '%)';
+      break;
+
+    case 'effects__preview--phobos' :
+      minFilter = 0;
+      maxFilter = 3;
+      valueFilter = procent * (maxFilter - minFilter) / 100 + minFilter;
+      photo.style.filter = 'blur(' + valueFilter + 'px)';
+      break;
+
+    case 'effects__preview--heat' :
+      maxFilter = 3;
+      valueFilter = procent * (maxFilter - minFilter) / 100 + minFilter;
+      photo.style.filter = 'brightness(' + valueFilter + ')';
+      break;
   }
 };
 
 effectLevelPin.addEventListener('mousedown', function (evt) {
+// перемещение ползунка
   var startCoords = {
     x: evt.clientX,
   };
@@ -157,52 +203,11 @@ effectLevelPin.addEventListener('mousedown', function (evt) {
     }
 
     effectLevelPin.style.left = newLeft + 'px';
-
     var levelEffect = (newLeft * 100) / effectLevelLine.offsetWidth;
     effectLevelDepth.style.width = levelEffect + '%';
-
     effectLevelValue.setAttribute('value', levelEffect);
 
-    var maxFilter = null;
-    var minFilter = null;
-    var valueFilter = null;
-
-    switch (photo.className) {
-      case 'effects__preview--chrome' :
-        minFilter = 0;
-        maxFilter = 1;
-        valueFilter = levelEffect * (maxFilter - minFilter) / 100 + minFilter;
-        photo.style.filter = 'grayscale(' + valueFilter + ')';
-        break;
-
-      case 'effects__preview--sepia' :
-        minFilter = 0;
-        maxFilter = 1;
-        valueFilter = levelEffect * (maxFilter - minFilter) / 100 + minFilter;
-        photo.style.filter = 'sepia(' + valueFilter + ')';
-        break;
-
-      case 'effects__preview--marvin' :
-        minFilter = 0;
-        maxFilter = 100;
-        valueFilter = levelEffect * (maxFilter - minFilter) / 100 + minFilter;
-        photo.style.filter = 'invert(' + valueFilter + '%)';
-        break;
-
-      case 'effects__preview--phobos' :
-        minFilter = 0;
-        maxFilter = 3;
-        valueFilter = levelEffect * (maxFilter - minFilter) / 100 + minFilter;
-        photo.style.filter = 'blur(' + valueFilter + 'px)';
-        break;
-
-      case 'effects__preview--heat' :
-        minFilter = 1;
-        maxFilter = 3;
-        valueFilter = levelEffect * (maxFilter - minFilter) / 100 + minFilter;
-        photo.style.filter = 'brightness(' + valueFilter + ')';
-        break;
-    }
+    changeEffectLevel(levelEffect);
   };
 
   var onMouseUp = function (upEvt) {
