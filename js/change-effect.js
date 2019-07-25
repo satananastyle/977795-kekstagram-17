@@ -17,10 +17,10 @@
 
     photo.classList.remove(photo.removeAttribute('class'));
     photo.classList.add('effects__preview--' + element.getAttribute('value'));
-    onChangeEffect();
+    onFilterChange();
   });
 
-  var onChangeEffect = function () {
+  var onFilterChange = function () {
     if (!photo.hasAttribute('class') || photo.className === 'effects__preview--none') {
       effectLevel.style.display = 'none';
       photo.style.filter = 'none';
@@ -36,8 +36,8 @@
     formChangeFile: formChangeFile,
     photo: photo,
     effectLevelPin: effectLevelPin,
-    onChangeEffect: onChangeEffect,
-    onEffectLevelPin: onEffectLevelPin
+    onFilterChange: onFilterChange,
+    onEffectLevelPinMousedown: onEffectLevelPinMousedown
   };
 
   // получение значения фильтра
@@ -70,7 +70,7 @@
     }
   };
 
-  var onEffectLevelPin = function (evt) {
+  var onEffectLevelPinMousedown = function (evt) {
     // перемещение ползунка
     var startCoords = {
       x: evt.clientX,
