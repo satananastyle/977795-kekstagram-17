@@ -17,29 +17,27 @@
 
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === ESC_CODE && document.activeElement !== textDescription) {
-      closePopup();
+      onClosePopup();
     }
   };
 
-  var openPopup = function () {
-    window.changeEffect();
+  var onOpenPopup = function () {
+    window.changeEffect.onChangeEffect();
     formChangeFile.classList.remove('hidden');
     closeForm.addEventListener('click', onPopupEscPress);
     document.addEventListener('keydown', onPopupEscPress);
+    window.changeEffect.effectLevelPin.addEventListener('mousedown', window.changeEffect.onEffectLevelPin);
   };
 
-  var closePopup = function () {
+  var onClosePopup = function () {
     photo.classList.remove(photo.removeAttribute('class'));
     formChangeFile.classList.add('hidden');
     closeForm.removeEventListener('click', onPopupEscPress);
     document.removeEventListener('keydown', onPopupEscPress);
+    window.changeEffect.effectLevelPin.removeEventListener('mousedown', window.changeEffect.onEffectLevelPin);
   };
 
   uploadFile.addEventListener('change', function () {
-    openPopup();
-  });
-
-  closeForm.addEventListener('click', function () {
-    closePopup();
+    onOpenPopup();
   });
 })();

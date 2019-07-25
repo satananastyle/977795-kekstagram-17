@@ -13,10 +13,10 @@
 
     window.form.photo.classList.remove(window.form.photo.removeAttribute('class'));
     window.form.photo.classList.add('effects__preview--' + element.getAttribute('value'));
-    changeEffect();
+    onChangeEffect();
   });
 
-  var changeEffect = function () {
+  var onChangeEffect = function () {
     if (!window.form.photo.hasAttribute('class') || window.form.photo.className === 'effects__preview--none') {
       effectLevel.style.display = 'none';
       window.form.photo.style.filter = 'none';
@@ -28,7 +28,11 @@
     }
   };
 
-  window.changeEffect = changeEffect;
+  window.changeEffect = {
+    effectLevelPin: effectLevelPin,
+    onChangeEffect: onChangeEffect,
+    onEffectLevelPin: onEffectLevelPin
+  };
 
   // получение значения фильтра
   var getValueFilter = function (procent, minFilter, maxFilter) {
@@ -60,7 +64,7 @@
     }
   };
 
-  effectLevelPin.addEventListener('mousedown', function (evt) {
+  var onEffectLevelPin = function (evt) {
     // перемещение ползунка
     var startCoords = {
       x: evt.clientX,
@@ -102,5 +106,5 @@
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-  });
+  };
 })();
