@@ -14,13 +14,13 @@
   };
 
   var onUploadFileChange = function () {
-    window.changeEffect.addListeners();
+    window.changeEffect.addListenersForm();
     closeForm.addEventListener('click', onClosePopupClick);
     document.addEventListener('keydown', onPopupEscPress);
   };
 
   var onClosePopupClick = function () {
-    window.changeEffect.removeListeners();
+    window.changeEffect.removeListenersForm();
     closeForm.removeEventListener('click', onClosePopupClick);
     document.removeEventListener('keydown', onPopupEscPress);
   };

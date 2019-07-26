@@ -106,14 +106,14 @@
     document.addEventListener('mouseup', onMouseUp);
   };
 
-  var addListeners = function () {
+  var addListenersForm = function () {
     onEffectChange();
     formChangeFile.classList.remove('hidden');
     effect.addEventListener('change', onFilterChange);
     effectLevelPin.addEventListener('mousedown', onEffectLevelPinMousedown);
   };
 
-  var removeListeners = function () {
+  var removeListenersForm = function () {
     photo.classList.remove(photo.removeAttribute('class'));
     formChangeFile.classList.add('hidden');
     effect.removeEventListener('change', onFilterChange);
@@ -121,7 +121,7 @@
   };
 
   window.changeEffect = {
-    addListeners: addListeners,
-    removeListeners: removeListeners
+    addListenersForm: addListenersForm,
+    removeListenersForm: removeListenersForm
   };
 })();
