@@ -1,5 +1,8 @@
 'use strict';
 (function () {
+  var TIME_OF_ANSWER = 10000;
+  var STATUS_OK = 200;
+
   var URL = 'https://js.dump.academy/kekstagram/data';
 
   var load = function (onSuccess, onError) {
@@ -7,7 +10,7 @@
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === STATUS_OK) {
         onSuccess(xhr.response);
       } else {
         onError('Ошибка при загрузке данных с сервера');
@@ -20,7 +23,7 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = 10000;
+    xhr.timeout = TIME_OF_ANSWER;
 
     xhr.open('GET', URL);
     xhr.send();
