@@ -47,27 +47,25 @@
     return picturesCopy;
   };
 
-  filterPopular.addEventListener('click', function () {
-    window.picturesList.forEach(function (wizard) {
-      wizard.remove();
+  var getFilterPictures = function (pictures) {
+    window.picturesList.forEach(function (element) {
+      element.remove();
     });
-    window.pictures.onLoadPicturesSuccess(window.picturesData);
+    window.pictures.onLoadPicturesSuccess(pictures);
+  };
+
+  filterPopular.addEventListener('click', function () {
+    getFilterPictures(window.picturesData);
   });
 
   filterDiscussed.addEventListener('click', function () {
-    window.picturesList.forEach(function (wizard) {
-      wizard.remove();
-    });
     var array = sortPictures(window.picturesData);
-    window.pictures.onLoadPicturesSuccess(array);
+    getFilterPictures(array);
   });
 
   filterNew.addEventListener('click', function () {
-    window.picturesList.forEach(function (wizard) {
-      wizard.remove();
-    });
     var newPictures = getRandomPictures();
-    window.pictures.onLoadPicturesSuccess(newPictures);
+    getFilterPictures(newPictures);
   });
 
 })();
