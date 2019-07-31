@@ -15,15 +15,15 @@
       }
 
       if (evt.target.id === 'filter-popular') {
-        getFilterPictures(window.picturesData);
+        window.debounce(getFilterPictures(window.picturesData));
       } else if (evt.target.id === 'filter-new') {
         var newPictures = getRandomPictures();
-        getFilterPictures(newPictures);
+        window.debounce(getFilterPictures(newPictures));
       } else if (evt.target.id === 'filter-discussed') {
         var array = sortPictures();
-        getFilterPictures(array);
+        window.debounce(getFilterPictures(array));
       } else {
-        getFilterPictures(window.picturesData);
+        window.debounce(getFilterPictures(window.picturesData));
       }
     };
 
