@@ -51,8 +51,7 @@
   }
 
   var getRandomPictures = function () {
-    var picturesCopy = window.picturesData.slice();
-    return picturesCopy.sort(getRandomArbitrary).slice(0, 10);
+    return window.picturesData.slice().sort(getRandomArbitrary).slice(0, 10);
   };
 
   var getFilterPictures = function (pictures) {
