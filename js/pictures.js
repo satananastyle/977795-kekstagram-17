@@ -23,6 +23,8 @@
       fragment.appendChild(renderPicture(pictures[i]));
       listElement.appendChild(fragment);
     }
+
+    window.listList = document.querySelectorAll('a.picture');
   };
 
   var onLoadPicturesError = function (errorMessage) {
@@ -38,4 +40,9 @@
   };
 
   window.load(onLoadPicturesSuccess, onLoadPicturesError);
+
+  window.pictures = {
+    onLoadPicturesSuccess: onLoadPicturesSuccess,
+    onLoadPicturesError: onLoadPicturesError
+  };
 })();
