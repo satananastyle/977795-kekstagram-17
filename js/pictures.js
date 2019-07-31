@@ -24,7 +24,7 @@
       listElement.appendChild(fragment);
     }
 
-    window.listList = document.querySelectorAll('a.picture');
+    window.picturesList = document.querySelectorAll('a.picture');
   };
 
   var onLoadPicturesError = function (errorMessage) {

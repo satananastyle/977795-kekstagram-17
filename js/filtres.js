@@ -48,14 +48,14 @@
   };
 
   filterPopular.addEventListener('click', function () {
-    window.listList.forEach(function (wizard) {
+    window.picturesList.forEach(function (wizard) {
       wizard.remove();
     });
     window.pictures.onLoadPicturesSuccess(window.picturesData);
   });
 
   filterDiscussed.addEventListener('click', function () {
-    window.listList.forEach(function (wizard) {
+    window.picturesList.forEach(function (wizard) {
       wizard.remove();
     });
     var array = sortPictures(window.picturesData);
@@ -63,7 +63,7 @@
   });
 
   filterNew.addEventListener('click', function () {
-    window.listList.forEach(function (wizard) {
+    window.picturesList.forEach(function (wizard) {
       wizard.remove();
     });
     var newPictures = getRandomPictures();
