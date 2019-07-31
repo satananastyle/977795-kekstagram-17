@@ -20,7 +20,7 @@
         var newPictures = getRandomPictures();
         getFilterPictures(newPictures);
       } else if (evt.target.id === 'filter-discussed') {
-        var array = sortPictures(window.picturesData);
+        var array = sortPictures();
         getFilterPictures(array);
       } else {
         getFilterPictures(window.picturesData);
@@ -30,20 +30,20 @@
     filter.addEventListener('click', getActiveButton);
   };
 
+  var rank = function (first, second) {
+    var firstCommentsLength = first.comments.length;
+    var secondCommentsLength = second.comments.length;
+    if (firstCommentsLength < secondCommentsLength) {
+      return 1;
+    } else if (firstCommentsLength > secondCommentsLength) {
+      return -1;
+    } else {
+      return 0;
+    }
+  };
+
   var sortPictures = function () {
-    var picturesCopy = window.picturesData.slice();
-    picturesCopy.sort(function (first, second) {
-      var firstCommentsLength = first.comments.length;
-      var secondCommentsLength = second.comments.lenght;
-      if (firstCommentsLength < secondCommentsLength) {
-        return 1;
-      } else if (firstCommentsLength > secondCommentsLength) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
-    return picturesCopy;
+    return window.picturesData.slice().sort(rank);
   };
 
   function getRandomArbitrary() {
