@@ -34,7 +34,7 @@
 
     bigPicture.querySelector('.comments-count').textContent = photo.comments.length;
     bigPicture.querySelector('.likes-count').textContent = photo.likes;
-    bigPicture.querySelector('.description').textContent = photo.description;
+    bigPicture.querySelector('.social__caption').textContent = photo.description;
 
     renderComments(photo.comments);
   };
