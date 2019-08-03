@@ -33,9 +33,6 @@
   };
 
   var initFilter = function (pictures) {
-    window.renderPictures(pictures);
-    window.renderBigPicture(pictures);
-
     var filter = document.querySelector('.img-filters');
     filter.classList.remove('img-filters--inactive');
 
@@ -62,5 +59,5 @@
     filter.addEventListener('click', window.debounce(renderFilter));
   };
 
-  window.renderFilter = renderFilter;
+  window.initFilter = initFilter;
 })();
