@@ -24,7 +24,7 @@
     }
   };
 
-  var getBigPicture = function (photos) {
+  var renderBigPicture = function (photos) {
 
     bigPicture.classList.remove('hidden');
     bigPicture.querySelector('.social__comment-count').classList.add('visually-hidden');
@@ -37,4 +37,6 @@
 
     renderComments(photos.comments);
   };
+
+  window.renderBigPicture = renderBigPicture;
 })();
