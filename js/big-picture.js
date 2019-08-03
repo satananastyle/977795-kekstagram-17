@@ -6,23 +6,23 @@
   var listComments = bigPicture.querySelector('.social__comments');
 
   var renderComment = function (comment) {
-    var commentElement = document.createElement('li');
-    commentElement.classList.add('social__comment');
+    var commentItem = document.createElement('li');
+    commentItem.classList.add('social__comment');
 
-    var commentElementImg = document.createElement('img');
-    commentElementImg.classList.add('social__picture');
-    commentElementImg.src = comment.avatar;
-    commentElementImg.alt = 'Аватар комментатора фотографии';
-    commentElementImg.width = '35';
-    commentElementImg.height = '35';
-    commentElement.appendChild(commentElementImg);
+    var commentImg = document.createElement('img');
+    commentImg.classList.add('social__picture');
+    commentImg.src = comment.avatar;
+    commentImg.alt = 'Аватар комментатора фотографии';
+    commentImg.width = '35';
+    commentImg.height = '35';
+    commentItem.appendChild(commentImg);
 
-    var commentElementText = document.createElement('p');
-    commentElementText.classList.add('social__text');
-    commentElementText.textContent = comment.message;
-    commentElement.appendChild(commentElementText);
+    var commentText = document.createElement('p');
+    commentText.classList.add('social__text');
+    commentText.textContent = comment.message;
+    commentItem.appendChild(commentText);
 
-    return commentElement;
+    return commentItem;
   };
 
   var renderComments = function (comments) {
