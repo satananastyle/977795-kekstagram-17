@@ -5,6 +5,13 @@
 
   var photo = document.querySelector('.img-upload__preview img');
 
+  var scaleSmaller = formChangeFile.querySelector('.scale__control--smaller');
+  var scaleBigger = formChangeFile.querySelector('.scale__control--bigger');
+  var scaleInput = formChangeFile.querySelector('.scale__control--value');
+  var scaleValue;
+  var maxValue = 100;
+  var minValue = 25;
+
   var effect = formChangeFile.querySelector('.effects');
   var effectLevel = formChangeFile.querySelector('.effect-level');
   var effectLevelLine = formChangeFile.querySelector('.effect-level__line');
@@ -22,22 +29,49 @@
 
   var onEffectChange = function () {
     if (!photo.hasAttribute('class') || photo.className === 'effects__preview--none') {
+      scaleValue = maxValue;
+      scaleInput.value = '100%';
       effectLevel.style.display = 'none';
       photo.style.filter = 'none';
     } else {
+      scaleValue = maxValue;
+      scaleInput.value = '100%';
       effectLevel.style.display = 'block';
       effectLevelPin.style.left = '100%';
       effectLevelDepth.style.width = '100%';
-      changeEffectLevel(100);
+      changeEffectLevel(maxValue);
+      changeScale(scaleValue);
     }
   };
 
-  // получение значения фильтра
   var getValueFilter = function (procent, minFilter, maxFilter) {
     return procent * (maxFilter - minFilter) / 100 + minFilter;
   };
 
-  // изменение фильтра
+  var changeScale = function (procent) {
+    photo.style = 'transform: scale(' + getValueFilter(procent, 0, 1) + ')';
+  };
+
+  var onScaleSmallerClick = function () {
+    var step = 25;
+    scaleValue = scaleValue - step;
+    if (scaleValue < minValue) {
+      scaleValue = minValue;
+    }
+    scaleInput.value = scaleValue + '%';
+    changeScale(scaleValue);
+  };
+
+  var onScaleBiggerClick = function () {
+    var step = 25;
+    scaleValue = scaleValue + step;
+    if (scaleValue > maxValue) {
+      scaleValue = maxValue;
+    }
+    scaleInput.value = scaleValue + '%';
+    changeScale(scaleValue);
+  };
+
   var changeEffectLevel = function (procent) {
     switch (photo.className) {
       case 'effects__preview--chrome' :
@@ -63,7 +97,6 @@
   };
 
   var onEffectLevelPinMousedown = function (evt) {
-    // перемещение ползунка
     var startCoords = {
       x: evt.clientX,
     };
@@ -109,6 +142,8 @@
   var addListenersForm = function () {
     onEffectChange();
     formChangeFile.classList.remove('hidden');
+    scaleSmaller.addEventListener('click', onScaleSmallerClick);
+    scaleBigger.addEventListener('click', onScaleBiggerClick);
     effect.addEventListener('change', onFilterChange);
     effectLevelPin.addEventListener('mousedown', onEffectLevelPinMousedown);
   };
@@ -116,6 +151,8 @@
   var removeListenersForm = function () {
     photo.classList.remove(photo.removeAttribute('class'));
     formChangeFile.classList.add('hidden');
+    scaleSmaller.removeEventListener('click', onScaleSmallerClick);
+    scaleBigger.removeEventListener('click', onScaleBiggerClick);
     effect.removeEventListener('change', onFilterChange);
     effectLevelPin.removeEventListener('mousedown', onEffectLevelPinMousedown);
   };
