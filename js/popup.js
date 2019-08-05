@@ -8,42 +8,61 @@
   var textDescription = document.querySelector('.text__description');
   var hashtag = document.querySelector('.text__hashtags');
   var submit = document.querySelector('.img-upload__submit');
-  var successTemplate = document.querySelector('#success');
+  var successMessage = document.querySelector('#success').content.querySelector('.success');
   var main = document.querySelector('main');
+
+  hashtag.addEventListener('focus', function () {
+    hashtag.style = 'border: 2px inset initial';
+  });
 
   var customValidation = function () {
     var value = hashtag.value;
-    var arrayOfTags = value.split(' ');
+    var listOfTags = value.split(' ');
+    var listOfTagsCopy = listOfTags.slice();
+    var text = '';
 
-    if (value !== '') {
-      if (arrayOfTags.length > 5) {
-        hashtag.setCustomValidity('Хештегов должно быть не больше 5');
-      } else {
-        hashtag.setCustomValidity('');
+    if (value.trim !== '') {
+      if (listOfTags.length > 5) {
+        text = 'Хештегов должно быть не больше 5';
+        return text;
       }
 
-      arrayOfTags.forEach(function (element) {
-        if (element.length > 20) {
-          hashtag.setCustomValidity('Длина хештега должна быть не больше 20 символов');
-        } else if (element === '#') {
-          hashtag.setCustomValidity('Хештег не может состоять только из #');
-        } else if (element[0] !== '#') {
-          hashtag.setCustomValidity('Хештег должен начинаться с #');
-        } else {
-          hashtag.setCustomValidity('');
+      for (var i = 0; i < listOfTags.length; i++) {
+        var hash = listOfTags[i];
+
+        if (hash.length > 20) {
+          text = 'Длина хештега должна быть не больше 20 символов';
+        } else if (hash === '#') {
+          text = 'Хештег не может состоять только из #';
+        } else if (hash[0] !== '#') {
+          text = 'Хештег должен начинаться с #';
+        } else if (listOfTagsCopy.indexOf(hash.toLowerCase(), i + 1) !== -1) {
+          text = 'Хештеги не должны повторяться';
         }
-      });
-    } else {
-      successPopup();
+
+        if (text) {
+          break;
+        }
+      }
     }
+    return text;
   };
 
   var successPopup = function () {
-    var successMessage = successTemplate.cloneNode(true);
     main.appendChild(successMessage);
+    closeForm.click();
   };
 
-  submit.addEventListener('click', customValidation);
+  submit.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    var errorText = customValidation();
+    if (errorText) {
+      hashtag.setCustomValidity(errorText);
+      hashtag.style = 'border: 2px solid red';
+    } else {
+      successPopup();
+    }
+  });
 
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === ESC_CODE && document.activeElement !== textDescription && document.activeElement !== hashtag) {
@@ -61,7 +80,6 @@
     window.changeEffect.removeListenersForm();
     closeForm.removeEventListener('click', onCloseFormClick);
     document.removeEventListener('keydown', onPopupEscPress);
-
   };
 
   uploadFile.addEventListener('change', onUploadFileChange);
