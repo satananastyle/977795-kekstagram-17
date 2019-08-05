@@ -10,6 +10,7 @@
   var submit = document.querySelector('.img-upload__submit');
   var successMessage = document.querySelector('#success').content.querySelector('.success');
   var main = document.querySelector('main');
+  var successButton = successMessage.querySelector('.success__button');
 
   hashtag.addEventListener('focus', function () {
     hashtag.style = 'border: 2px inset initial';
@@ -21,7 +22,7 @@
     var listOfTagsCopy = listOfTags.slice();
     var text = '';
 
-    if (value.trim !== '') {
+    if (value !== '') {
       if (listOfTags.length > 5) {
         text = 'Хештегов должно быть не больше 5';
         return text;
@@ -51,6 +52,16 @@
   var successPopup = function () {
     main.appendChild(successMessage);
     closeForm.click();
+
+    successButton.addEventListener('click', function () {
+      successMessage.remove();
+    });
+
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === ESC_CODE) {
+        successMessage.remove();
+      }
+    });
   };
 
   submit.addEventListener('click', function (evt) {
