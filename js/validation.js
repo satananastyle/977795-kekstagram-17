@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var MAX_LENGTH = 10;
+  var MAX_LENGTH = 20;
   var MAX_TAGS = 5;
 
   var getTextError = function (hashtag) {
