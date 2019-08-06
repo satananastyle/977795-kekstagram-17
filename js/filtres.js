@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var FIRST_IMG = 0;
+  var LAST_IMG = 10;
   var rank = function (first, second) {
     var firstCommentsLength = first.comments.length;
     var secondCommentsLength = second.comments.length;
@@ -22,8 +24,7 @@
   };
 
   var getRandomPictures = function (pictures) {
-    var lastImg = 10;
-    return pictures.slice().sort(getRandomArbitrary).slice(0, lastImg);
+    return pictures.slice().sort(getRandomArbitrary).slice(FIRST_IMG, LAST_IMG);
   };
 
   var getFilterPictures = function (pictures) {

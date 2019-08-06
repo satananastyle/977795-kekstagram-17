@@ -4,6 +4,7 @@
   var MAX_VALUE = 100;
   var MIN_VALUE = 25;
   var STEP_SCALE = 25;
+  var MAX_PROCENT = 100;
 
   var formChangeFile = document.querySelector('.img-upload__overlay');
 
@@ -43,7 +44,7 @@
   };
 
   var getValueFilter = function (procent, minFilter, maxFilter) {
-    return procent * (maxFilter - minFilter) / 100 + minFilter;
+    return procent * (maxFilter - minFilter) / MAX_PROCENT + minFilter;
   };
 
   var changeScale = function (procent) {
