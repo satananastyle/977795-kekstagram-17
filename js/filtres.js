@@ -10,9 +10,9 @@
       return 1;
     } else if (firstCommentsLength > secondCommentsLength) {
       return -1;
-    } else {
-      return 0;
     }
+
+    return 0;
   };
 
   var sortPictures = function (pictures) {

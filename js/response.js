@@ -43,12 +43,8 @@
       }
     });
 
-    xhr.addEventListener('error', function () {
-      onError();
-    });
-    xhr.addEventListener('timeout', function () {
-      onError();
-    });
+    xhr.addEventListener('error', onError);
+    xhr.addEventListener('timeout', onError);
 
     xhr.open('POST', URL_UPLOAD);
     xhr.send(data);
