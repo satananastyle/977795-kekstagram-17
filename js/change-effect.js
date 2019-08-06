@@ -43,6 +43,12 @@
     }
   };
 
+  var getStartCondition = function () {
+    scaleValue = MAX_VALUE;
+    scaleInput.value = '100%';
+    photo.style = 'transform: scale(' + getValueFilter(MAX_PROCENT, 0, 1) + ')';
+  };
+
   var getValueFilter = function (procent, minFilter, maxFilter) {
     return procent * (maxFilter - minFilter) / MAX_PROCENT + minFilter;
   };
@@ -137,8 +143,7 @@
   };
 
   var addListenersForm = function () {
-    scaleValue = MAX_VALUE;
-    scaleInput.value = '100%';
+    getStartCondition();
     onEffectChange();
     formChangeFile.classList.remove('hidden');
     scaleSmaller.addEventListener('click', onScaleSmallerClick);
