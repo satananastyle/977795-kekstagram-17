@@ -5,10 +5,10 @@
   var STEP_COUNT = 5;
   var INITIAL_CURRENT_COMMENTS = 5;
 
-  var bigPicture = document.querySelector('.big-picture');
-  var listComments = bigPicture.querySelector('.social__comments');
-  var commentsLoader = bigPicture.querySelector('.comments-loader');
   var body = document.querySelector('body');
+  var bigPicture = document.querySelector('.big-picture');
+  var listComment = bigPicture.querySelector('.social__comments');
+  var commentsLoader = bigPicture.querySelector('.comments-loader');
   var currentComments = INITIAL_CURRENT_COMMENTS;
   var currentCommentsCount = bigPicture.querySelector('.social__comment-count');
   var commentsCount = bigPicture.querySelector('.comments-count');
@@ -37,18 +37,18 @@
   };
 
   var renderComments = function (comments) {
-    listComments.innerHTML = '';
+    listComment.innerHTML = '';
 
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < comments.length; i++) {
       var comment = renderComment(comments[i]);
       fragment.appendChild(comment);
     }
-    listComments.appendChild(fragment);
+    listComment.appendChild(fragment);
   };
 
   var showComments = function () {
-    var usersComments = Array.from(listComments.querySelectorAll('.social__comment'));
+    var usersComments = Array.from(listComment.querySelectorAll('.social__comment'));
 
     if (currentComments < usersComments.length) {
       for (var i = 0; i < currentComments; i++) {
@@ -66,9 +66,9 @@
     }
   };
 
-  commentsLoader.addEventListener('click', function () {
+  var onShowCommentsClick = function () {
     showComments();
-  });
+  };
 
   var renderBigPicture = function (photo) {
     bigPicture.classList.remove('hidden');
@@ -83,6 +83,7 @@
     closeBigPicture.addEventListener('click', onClosePictureClick);
     document.addEventListener('keydown', onPopupEscPress);
 
+    commentsLoader.addEventListener('click', onShowCommentsClick);
     renderComments(photo.comments);
     showComments();
   };
@@ -97,6 +98,7 @@
     currentComments = INITIAL_CURRENT_COMMENTS;
     bigPicture.classList.add('hidden');
     body.classList.remove('modal-open');
+    commentsLoader.removeEventListener('click', onShowCommentsClick);
     closeBigPicture.removeEventListener('click', onClosePictureClick);
     document.removeEventListener('keydown', onPopupEscPress);
   };
