@@ -3,14 +3,18 @@
 (function () {
   var ESC_CODE = 27;
 
+  var main = document.querySelector('main');
   var uploadFile = document.querySelector('#upload-file');
   var closeForm = document.querySelector('.img-upload__cancel');
   var textDescription = document.querySelector('.text__description');
   var hashtag = document.querySelector('.text__hashtags');
   var submit = document.querySelector('.img-upload__submit');
+
   var successMessage = document.querySelector('#success').content.querySelector('.success');
-  var main = document.querySelector('main');
+  var errorMessage = document.querySelector('#error').content.querySelector('.error');
+
   var successButton = successMessage.querySelector('.success__button');
+  var errorButtons = document.querySelectorAll('.error__button');
 
   var customValidation = function () {
     var value = hashtag.value;
@@ -49,7 +53,12 @@
 
   var onCloseSuccessClick = function () {
     successMessage.remove();
-    removeListenersSuccess();
+    removeListenersPopup();
+  };
+
+  var onCloseErrorClick = function () {
+    errorMessage.remove();
+    removeListenersPopup();
   };
 
   var onDocumentClick = function (evt) {
@@ -59,13 +68,29 @@
     }
   };
 
+  var onDocumentErrorClick = function (evt) {
+    var parent = evt.target.classList.contains('.error__inner');
+    if (!parent) {
+      onCloseErrorClick();
+    }
+  };
+
   var onSuccessEscPress = function (evt) {
     if (evt.keyCode === ESC_CODE) {
       onCloseSuccessClick();
     }
   };
 
-  var removeListenersSuccess = function () {
+  var onErrorEscPress = function (evt) {
+    if (evt.keyCode === ESC_CODE) {
+      onCloseErrorClick();
+    }
+  };
+
+  var removeListenersPopup = function () {
+    errorButtons.forEach(function (element) {
+      element.removeEventListener('click', onCloseErrorClick);
+    });
     successButton.removeEventListener('click', onCloseSuccessClick);
     document.removeEventListener('click', onDocumentClick);
     document.removeEventListener('keydown', onSuccessEscPress);
@@ -83,6 +108,20 @@
     document.addEventListener('keydown', onSuccessEscPress);
   };
 
+  var errorPopup = function (evt) {
+    evt.preventDefault(evt);
+    evt.stopPropagation(evt);
+
+    main.appendChild(errorMessage);
+    closeForm.click();
+
+    errorButtons.forEach(function (element) {
+      element.addEventListener('click', onCloseErrorClick);
+    });
+    document.addEventListener('click', onDocumentErrorClick);
+    document.addEventListener('keydown', onErrorEscPress);
+  };
+
   submit.addEventListener('click', function (evt) {
     var errorText = customValidation();
     if (errorText) {
@@ -91,7 +130,7 @@
     } else {
       hashtag.style = 'border: 2px inset initial';
       evt.preventDefault();
-      successPopup(evt);
+      sibmitForm(evt);
     }
   });
 
@@ -108,10 +147,24 @@
   };
 
   var onCloseFormClick = function () {
+    form.reset();
     window.changeEffect.removeListenersForm();
     closeForm.removeEventListener('click', onCloseFormClick);
     document.removeEventListener('keydown', onPopupEscPress);
   };
 
   uploadFile.addEventListener('change', onUploadFileChange);
+
+  var form = document.querySelector('.img-upload__form');
+  var sibmitForm = function (evt) {
+    window.load.upload(new FormData(form), function () {
+      form.reset();
+      errorPopup(evt);
+    }, function () {
+      form.reset();
+      successPopup(evt);
+    });
+
+    evt.preventDefault();
+  };
 })();
