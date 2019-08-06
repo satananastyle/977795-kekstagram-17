@@ -91,7 +91,7 @@
     } else {
       hashtag.style = 'border: 2px inset initial';
       evt.preventDefault();
-      successPopup(evt);
+      sibmitForm(evt);
     }
   });
 
@@ -114,4 +114,13 @@
   };
 
   uploadFile.addEventListener('change', onUploadFileChange);
+
+  var form = document.querySelector('.img-upload__form');
+  var sibmitForm = function (evt) {
+    window.upload(new FormData(form), window.renderPopupError, function () {
+      successPopup(evt);
+      form.reset();
+    });
+    evt.preventDefault();
+  };
 })();
