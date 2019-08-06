@@ -1,6 +1,10 @@
 'use strict';
 
 (function () {
+  var MAX_VALUE = 100;
+  var MIN_VALUE = 25;
+  var STEP_SCALE = 25;
+
   var formChangeFile = document.querySelector('.img-upload__overlay');
 
   var photo = document.querySelector('.img-upload__preview img');
@@ -9,8 +13,6 @@
   var scaleBigger = formChangeFile.querySelector('.scale__control--bigger');
   var scaleInput = formChangeFile.querySelector('.scale__control--value');
   var scaleValue;
-  var maxValue = 100;
-  var minValue = 25;
 
   var effect = formChangeFile.querySelector('.effects');
   var effectLevel = formChangeFile.querySelector('.effect-level');
@@ -29,17 +31,17 @@
 
   var onEffectChange = function () {
     if (!photo.hasAttribute('class') || photo.className === 'effects__preview--none') {
-      scaleValue = maxValue;
+      scaleValue = MAX_VALUE;
       scaleInput.value = '100%';
       effectLevel.style.display = 'none';
       photo.style.filter = 'none';
     } else {
-      scaleValue = maxValue;
+      scaleValue = MAX_VALUE;
       scaleInput.value = '100%';
       effectLevel.style.display = 'block';
       effectLevelPin.style.left = '100%';
       effectLevelDepth.style.width = '100%';
-      changeEffectLevel(maxValue);
+      changeEffectLevel(MAX_VALUE);
       changeScale(scaleValue);
     }
   };
@@ -53,20 +55,18 @@
   };
 
   var onScaleSmallerClick = function () {
-    var step = 25;
-    scaleValue = scaleValue - step;
-    if (scaleValue < minValue) {
-      scaleValue = minValue;
+    scaleValue = scaleValue - STEP_SCALE;
+    if (scaleValue < MIN_VALUE) {
+      scaleValue = MIN_VALUE;
     }
     scaleInput.value = scaleValue + '%';
     changeScale(scaleValue);
   };
 
   var onScaleBiggerClick = function () {
-    var step = 25;
-    scaleValue = scaleValue + step;
-    if (scaleValue > maxValue) {
-      scaleValue = maxValue;
+    scaleValue = scaleValue + STEP_SCALE;
+    if (scaleValue > MAX_VALUE) {
+      scaleValue = MAX_VALUE;
     }
     scaleInput.value = scaleValue + '%';
     changeScale(scaleValue);
