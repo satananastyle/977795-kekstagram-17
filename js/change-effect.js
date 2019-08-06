@@ -31,8 +31,6 @@
 
   var onEffectChange = function () {
     if (!photo.hasAttribute('class') || photo.className === 'effects__preview--none') {
-      scaleValue = MAX_VALUE;
-      scaleInput.value = '100%';
       effectLevel.style.display = 'none';
       photo.style.filter = 'none';
     } else {
@@ -138,6 +136,8 @@
   };
 
   var addListenersForm = function () {
+    scaleValue = MAX_VALUE;
+    scaleInput.value = '100%';
     onEffectChange();
     formChangeFile.classList.remove('hidden');
     scaleSmaller.addEventListener('click', onScaleSmallerClick);
