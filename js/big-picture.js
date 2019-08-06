@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ESC_CODE = 27;
   var STEP_COUNT = 5;
   var INITIAL_CURRENT_COMMENTS = 5;
 
@@ -40,10 +39,12 @@
     listComment.innerHTML = '';
 
     var fragment = document.createDocumentFragment();
+
     for (var i = 0; i < comments.length; i++) {
       var comment = renderComment(comments[i]);
       fragment.appendChild(comment);
     }
+
     listComment.appendChild(fragment);
   };
 
@@ -82,14 +83,14 @@
 
     closeBigPicture.addEventListener('click', onClosePictureClick);
     document.addEventListener('keydown', onPopupEscPress);
-
     commentsLoader.addEventListener('click', onShowCommentsClick);
+
     renderComments(photo.comments);
     showComments();
   };
 
   var onPopupEscPress = function (evt) {
-    if (evt.keyCode === ESC_CODE) {
+    if (evt.keyCode === window.ESC_CODE) {
       onClosePictureClick();
     }
   };

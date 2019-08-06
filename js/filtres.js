@@ -1,4 +1,5 @@
 'use strict';
+
 (function () {
   var rank = function (first, second) {
     var firstCommentsLength = first.comments.length;
@@ -21,7 +22,8 @@
   };
 
   var getRandomPictures = function (pictures) {
-    return pictures.slice().sort(getRandomArbitrary).slice(0, 10);
+    var lastImg = 10;
+    return pictures.slice().sort(getRandomArbitrary).slice(0, lastImg);
   };
 
   var getFilterPictures = function (pictures) {
@@ -56,11 +58,9 @@
       }
     };
 
-    var onFilterClick = function (evt) {
-      renderFilter(evt);
-    };
+    var onFilterClick = window.debounce(renderFilter);
 
-    filter.addEventListener('click', window.debounce(onFilterClick));
+    filter.addEventListener('click', onFilterClick);
   };
 
   window.initFilter = initFilter;

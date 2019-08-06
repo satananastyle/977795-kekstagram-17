@@ -1,5 +1,5 @@
 'use strict';
-// создаем данные
+
 (function () {
   var listElement = document.querySelector('.pictures');
 
