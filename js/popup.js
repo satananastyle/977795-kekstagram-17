@@ -18,33 +18,33 @@
     var tagsCopy = tags.map(function (hash) {
       return hash.toLowerCase();
     });
-    var text = '';
+    var textError = '';
 
     if (value.trim() !== '') {
       if (tags.length > 5) {
-        text = 'Хештегов должно быть не больше 5';
-        return text;
+        textError = 'Хештегов должно быть не больше 5';
+        return textError;
       }
 
       for (var i = 0; i < tags.length; i++) {
         var hash = tags[i];
 
         if (hash.length > 20) {
-          text = 'Длина хештега должна быть не больше 20 символов';
+          textError = 'Длина хештега должна быть не больше 20 символов';
         } else if (hash === '#') {
-          text = 'Хештег не может состоять только из #';
+          textError = 'Хештег не может состоять только из #';
         } else if (hash[0] !== '#') {
-          text = 'Хештег должен начинаться с #';
+          textError = 'Хештег должен начинаться с #';
         } else if (tagsCopy.indexOf(hash.toLowerCase(), i + 1) !== -1) {
-          text = 'Хештеги не должны повторяться';
+          textError = 'Хештеги не должны повторяться';
         }
 
-        if (text) {
+        if (textError) {
           break;
         }
       }
     }
-    return text;
+    return textError;
   };
 
   var onCloseSuccessClick = function () {
@@ -52,25 +52,23 @@
     removeListenersSuccess();
   };
 
-  var onParentClick = function (evt) {
+  var onDocumentClick = function (evt) {
     var parent = evt.target.classList.contains('.success__inner');
     if (!parent) {
       onCloseSuccessClick();
-      removeListenersSuccess();
     }
   };
 
-  var onEscPress = function (evt) {
+  var onSuccessEscPress = function (evt) {
     if (evt.keyCode === ESC_CODE) {
       onCloseSuccessClick();
-      removeListenersSuccess();
     }
   };
 
   var removeListenersSuccess = function () {
     successButton.removeEventListener('click', onCloseSuccessClick);
-    document.removeEventListener('click', onParentClick);
-    document.removeEventListener('keydown', onEscPress);
+    document.removeEventListener('click', onDocumentClick);
+    document.removeEventListener('keydown', onSuccessEscPress);
   };
 
   var successPopup = function (evt) {
@@ -81,10 +79,8 @@
     closeForm.click();
 
     successButton.addEventListener('click', onCloseSuccessClick);
-
-    document.addEventListener('click', onParentClick);
-
-    document.addEventListener('keydown', onEscPress);
+    document.addEventListener('click', onDocumentClick);
+    document.addEventListener('keydown', onSuccessEscPress);
   };
 
   submit.addEventListener('click', function (evt) {
