@@ -1,7 +1,7 @@
 'use strict';
-// создаем данные
+
 (function () {
-  var listElement = document.querySelector('.pictures');
+  var listPictures = document.querySelector('.pictures');
 
   var pictureTemplate = document.querySelector('#picture')
   .content
@@ -29,7 +29,7 @@
       fragment.appendChild(renderPicture(pictures[i]));
     }
 
-    listElement.appendChild(fragment);
+    listPictures.appendChild(fragment);
   };
 
   window.renderPictures = renderPictures;
