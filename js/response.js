@@ -5,7 +5,7 @@
   var STATUS_OK = 200;
 
   var URL_LOAD = 'https://js.dump.academy/kekstagram/data';
-  var URL_UPLOAD = 'https://js.dump.academy/kekstagram1';
+  var URL_UPLOAD = 'https://js.dump.academy/kekstagram';
 
   var load = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();

@@ -36,8 +36,6 @@
       effectLevel.style.display = 'none';
       photo.style.filter = 'none';
     } else {
-      scaleValue = MAX_VALUE;
-      scaleInput.value = '100%';
       effectLevel.style.display = 'block';
       effectLevelPin.style.left = '100%';
       effectLevelDepth.style.width = '100%';
