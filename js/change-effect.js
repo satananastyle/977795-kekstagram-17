@@ -22,15 +22,15 @@
   var effectLevelPin = formChangeFile.querySelector('.effect-level__pin');
   var effectLevelDepth = formChangeFile.querySelector('.effect-level__depth');
 
+  var defaultEffectsRadio = document.querySelector('.effects__radio[checked]');
+  var effectsPrewiewClass;
+
   var onFilterChange = function (evt) {
-    var element = evt.target;
+    var element = evt ? evt.target : defaultEffectsRadio;
+    photo.classList.remove(effectsPrewiewClass);
+    effectsPrewiewClass = 'effects__preview--' + element.value;
+    photo.classList.add(effectsPrewiewClass);
 
-    photo.classList.remove(photo.classList);
-    photo.classList.add('effects__preview--' + element.value);
-    onEffectChange();
-  };
-
-  var onEffectChange = function () {
     if (photo.classList.contains('effects__preview--none')) {
       effectLevel.style.display = 'none';
       photo.style.filter = 'none';
@@ -47,7 +47,6 @@
     scaleValue = MAX_VALUE;
     scaleInput.value = '100%';
     photo.style = 'transform: scale(' + getValueFilter(MAX_PERCENT, 0, 1) + ')';
-    photo.classList.add('effects__preview--none');
   };
 
   var getValueFilter = function (percent, minFilter, maxFilter) {
@@ -145,7 +144,7 @@
 
   var addListenersForm = function () {
     getStartCondition();
-    onEffectChange();
+    onFilterChange();
     formChangeFile.classList.remove('hidden');
     scaleSmaller.addEventListener('click', onScaleSmallerClick);
     scaleBigger.addEventListener('click', onScaleBiggerClick);
