@@ -4,7 +4,7 @@
   var MAX_VALUE = 100;
   var MIN_VALUE = 25;
   var STEP_SCALE = 25;
-  var MAX_PROCENT = 100;
+  var MAX_PERCENT = 100;
 
   var formChangeFile = document.querySelector('.img-upload__overlay');
 
@@ -46,15 +46,15 @@
   var getStartCondition = function () {
     scaleValue = MAX_VALUE;
     scaleInput.value = '100%';
-    photo.style = 'transform: scale(' + getValueFilter(MAX_PROCENT, 0, 1) + ')';
+    photo.style = 'transform: scale(' + getValueFilter(MAX_PERCENT, 0, 1) + ')';
   };
 
-  var getValueFilter = function (procent, minFilter, maxFilter) {
-    return procent * (maxFilter - minFilter) / MAX_PROCENT + minFilter;
+  var getValueFilter = function (percent, minFilter, maxFilter) {
+    return percent * (maxFilter - minFilter) / MAX_PERCENT + minFilter;
   };
 
-  var changeScale = function (procent) {
-    photo.style = 'transform: scale(' + getValueFilter(procent, 0, 1) + ')';
+  var changeScale = function (percent) {
+    photo.style = 'transform: scale(' + getValueFilter(percent, 0, 1) + ')';
   };
 
   var onScaleSmallerClick = function () {
@@ -75,26 +75,26 @@
     changeScale(scaleValue);
   };
 
-  var changeEffectLevel = function (procent) {
+  var changeEffectLevel = function (percent) {
     switch (photo.className) {
       case 'effects__preview--chrome' :
-        photo.style.filter = 'grayscale(' + getValueFilter(procent, 0, 1) + ')';
+        photo.style.filter = 'grayscale(' + getValueFilter(percent, 0, 1) + ')';
         break;
 
       case 'effects__preview--sepia' :
-        photo.style.filter = 'sepia(' + getValueFilter(procent, 0, 1) + ')';
+        photo.style.filter = 'sepia(' + getValueFilter(percent, 0, 1) + ')';
         break;
 
       case 'effects__preview--marvin' :
-        photo.style.filter = 'invert(' + getValueFilter(procent, 0, 100) + '%)';
+        photo.style.filter = 'invert(' + getValueFilter(percent, 0, 100) + '%)';
         break;
 
       case 'effects__preview--phobos' :
-        photo.style.filter = 'blur(' + getValueFilter(procent, 0, 3) + 'px)';
+        photo.style.filter = 'blur(' + getValueFilter(percent, 0, 3) + 'px)';
         break;
 
       case 'effects__preview--heat' :
-        photo.style.filter = 'brightness(' + getValueFilter(procent, 1, 3) + ')';
+        photo.style.filter = 'brightness(' + getValueFilter(percent, 1, 3) + ')';
         break;
     }
   };

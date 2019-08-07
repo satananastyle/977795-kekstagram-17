@@ -54,8 +54,8 @@
         var newPictures = getRandomPictures(pictures);
         getFilterPictures(newPictures);
       } else if (evt.target.id === 'filter-discussed') {
-        var array = sortPictures(pictures);
-        getFilterPictures(array);
+        var discussedPictures = sortPictures(pictures);
+        getFilterPictures(discussedPictures);
       }
     };
 
