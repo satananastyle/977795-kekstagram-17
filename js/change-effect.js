@@ -25,13 +25,13 @@
   var onFilterChange = function (evt) {
     var element = evt.target;
 
-    photo.classList.remove(photo.removeAttribute('class'));
-    photo.classList.add('effects__preview--' + element.getAttribute('value'));
+    photo.classList.remove(photo.classList);
+    photo.classList.add('effects__preview--' + element.value);
     onEffectChange();
   };
 
   var onEffectChange = function () {
-    if (!photo.hasAttribute('class') || photo.className === 'effects__preview--none') {
+    if (photo.classList.contains('effects__preview--none')) {
       effectLevel.style.display = 'none';
       photo.style.filter = 'none';
     } else {
@@ -47,6 +47,7 @@
     scaleValue = MAX_VALUE;
     scaleInput.value = '100%';
     photo.style = 'transform: scale(' + getValueFilter(MAX_PERCENT, 0, 1) + ')';
+    photo.classList.add('effects__preview--none');
   };
 
   var getValueFilter = function (percent, minFilter, maxFilter) {
@@ -126,7 +127,7 @@
       effectLevelPin.style.left = newLeft + 'px';
       var levelEffect = (newLeft * 100) / effectLevelLine.offsetWidth;
       effectLevelDepth.style.width = levelEffect + '%';
-      effectLevelValue.setAttribute('value', levelEffect);
+      effectLevelValue.value = levelEffect;
 
       changeEffectLevel(levelEffect);
     };
@@ -153,7 +154,6 @@
   };
 
   var removeListenersForm = function () {
-    photo.classList.remove(photo.removeAttribute('class'));
     formChangeFile.classList.add('hidden');
     scaleSmaller.removeEventListener('click', onScaleSmallerClick);
     scaleBigger.removeEventListener('click', onScaleBiggerClick);
