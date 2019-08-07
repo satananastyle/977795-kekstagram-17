@@ -8,10 +8,10 @@
     var secondCommentsLength = second.comments.length;
     if (firstCommentsLength < secondCommentsLength) {
       return 1;
-    } else if (firstCommentsLength > secondCommentsLength) {
+    }
+    if (firstCommentsLength > secondCommentsLength) {
       return -1;
     }
-
     return 0;
   };
 
