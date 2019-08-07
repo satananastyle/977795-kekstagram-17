@@ -102,6 +102,7 @@
   };
 
   var onUploadFileChange = function () {
+    window.getUserPhoto();
     window.changeEffect.addListenersForm();
     submit.addEventListener('click', onSubmitClick);
     closeForm.addEventListener('click', onCloseFormClick);
