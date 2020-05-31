@@ -5,4 +5,6 @@ var init = function (pictures) {
   window.initFilter(pictures);
 };
 
-window.load.load(init, window.renderMessageError);
+var pictures = window.getMock();
+
+init(pictures);
